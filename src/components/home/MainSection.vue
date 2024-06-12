@@ -29,7 +29,7 @@
                         bo’l!</span>
                 </p>
 
-                <RouterLink to="/signup"
+                <RouterLink to="/signin"
                     class="inline-flex items-center gap-2 bg-white py-3 px-7 rounded-md text-purple text-base font-medium hover:bg-slate-200">
                     Ishtirok
                     etish <img src="../../assets/icons/ArrowUpRight-d.svg" alt="">

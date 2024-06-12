@@ -38,16 +38,18 @@
 
                 <div class="mb-6">
 
-                    <router-link to="/restore" class="text-base text-[#3082FE] font-medium">Parolni unutdingizmi?</router-link>
+                    <router-link to="/restore" class="text-base text-[#3082FE] font-medium">Parolni
+                        unutdingizmi?</router-link>
 
                 </div>
 
                 <div class="">
 
-                    <Button class="hover:bg-primary w-full mb-6 bg-purple">Sms kod olish</Button>
+                    <Button class="hover:bg-primary w-full mb-6 bg-purple" type="submit">Hisobga kirish</Button>
 
                     <router-link to="/signup"
-                        class="w-full bg-[#1B264A] hover:bg-primary py-3 px-7 text-white rounded-md flex justify-center">Menda akkaunt yo'q</router-link>
+                        class="w-full bg-[#1B264A] hover:bg-primary py-3 px-7 text-white rounded-md flex justify-center">Menda
+                        akkaunt yo'q</router-link>
 
                 </div>
 
@@ -72,6 +74,8 @@ import { vMaska } from "maska/vue"
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup'
 import * as yup from 'yup'
+import AccountService from '../../service/account';
+import router from '../../router';
 
 const isFormSubmitted = ref(false)
 
@@ -80,19 +84,22 @@ const schema = toTypedSchema(yup.object({
     password: yup.string().min(6, 'Kamida 6ta belgidan iborat bo\'lishi kerak').required('Parolni kiriting'),
 }))
 
-const { errors, defineField, handleSubmit } = useForm({
+const { errors, defineField, handleSubmit, validate } = useForm({
     validationSchema: schema
 })
 
 const [phoneNumber, phoneNumberAttrs] = defineField('phoneNumber')
 const [password, passwordAttrs] = defineField('password')
 
-const onhandleSubmit = handleSubmit(async(values) => {
+const onhandleSubmit = handleSubmit(async (values) => {
     try {
         await validate();
+        const res = await AccountService.SignIn(values)
+        console.log(res, 'res ,signin')
         isFormSubmitted.value = true;
+        router.push('/user')
     } catch (error) {
-        alert.error('Validation error:', error);
+        console.error('Validation error:', error);
     }
 })
 
