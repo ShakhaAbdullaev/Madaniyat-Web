@@ -18,13 +18,13 @@
 
                 <p
                     class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
-                    {{  }}</p>
+                    {{ userInfo.person.nameLatin }}</p>
 
                 <p class="text-white font-medium mb-2">Otasining ismi</p>
 
                 <p
                     class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
-                    {{  }}</p>
+                    {{ userInfo.person.patronymLatin }}</p>
 
             </div>
 
@@ -34,13 +34,13 @@
 
                 <p
                     class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
-                    {{  }}</p>
+                    {{ userInfo.person.surnameLatin }}</p>
 
                 <p class="text-white font-medium mb-2">Tugilgan sana</p>
 
                 <p
                     class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
-                    {{  }}</p>
+                    {{ userInfo.person.birthDate }}</p>
 
             </div>
 
@@ -54,7 +54,13 @@ import { ref, onMounted } from 'vue';
 import AccountService from '../../service/account.js';
 
 const userInfo = ref({
-    
+    pinfl: '',
+    person:{
+        nameLatin: '',
+        surnameLatin: '',
+        patronymLatin: '',
+        birthDate: ''
+    }
 });
 
 
@@ -62,7 +68,6 @@ const fetchUserInfo = async () => {
     try {
         const response = await AccountService.GetUserInfo();
         userInfo.value = response.data;
-        console.log('User info:', userInfo.value);
     } catch (error) {
         console.error('Error fetching user info:', error);
     }

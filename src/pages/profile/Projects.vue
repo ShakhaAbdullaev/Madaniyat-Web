@@ -1,14 +1,16 @@
 <template>
     <div>
-        <h1 class="text-white font-bold mb-5">Ishtirok joylarim</h1>
+        <h1 class="text-white font-bold mb-5">Loyihalar</h1>
 
         <hr class="border border-1 border-grey opacity-20">
 
-        <div>
+        <div class="flex flex-col justify-center items-center">
 
             <div v-if="error" class="flex justify-center items-center flex-col h-[50vh]">
                 <ErrorComponent :image="errorImage" :message="errorMessage" :errorMessage="additionalMessage" />
             </div>
+
+            <Button class="bg-white text-[#5425A1] flex gap-2 rounded-md font-semibold">Loyiha yuklash <img src="../../assets/icons/DownloadSimple.svg" alt=""></Button>
 
         </div>
 
@@ -17,9 +19,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import Button from '../../components/ui-components/Button.vue'
 import ErrorComponent from '../../components/profile/Error.vue'
 import AccountService from '../../service/account.js'
-import ErrorIMG from '../../assets/folderEmpty.png';
+import ErrorIMG from '../../assets/project.png';
 
 const error = ref(false)
 const errorMessage = ref('')
@@ -33,7 +36,7 @@ const fetchUserData = async () => {
     } catch (e) {
         error.value = true
         errorMessage.value = 'Ma’lumot topilmadi'
-        additionalMessage.value = 'Ishtirok joylar kiritilmagan yoki mavjud emas'
+        additionalMessage.value = 'Siz quyidagi tugmani bosish orqali loyihalar yuklashingiz mumkin '
         errorImage.value = ErrorIMG
     }
 }

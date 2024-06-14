@@ -13,7 +13,7 @@
                 </div>
 
                 <div>
-                    <p class="text-white text-3xl font-bold ">{{ user.fullName }}
+                    <p class="text-white text-3xl font-bold ">{{ user.person.nameLatin }} {{ user.person.surnameLatin }}
                     </p>
 
                     <p class="text-customGrey ">FrontEnd Developer</p>
@@ -40,7 +40,10 @@ import Button from '../ui-components/Button.vue';
 import AccountService from '../../service/account.js'
 
 const user = ref({
-    name: '',
+    person:{
+        nameLatin: '',
+        surnameLatin: '',
+    }
 })
 
 const fetchUserData = async () => {

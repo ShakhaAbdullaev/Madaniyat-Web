@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-white font-bold mb-5">Ishtirok joylarim</h1>
+        <h1 class="text-white font-bold mb-5">Ijodiy videolarim</h1>
 
         <hr class="border border-1 border-grey opacity-20">
 
@@ -33,7 +33,7 @@ const fetchUserData = async () => {
     } catch (e) {
         error.value = true
         errorMessage.value = 'Ma’lumot topilmadi'
-        additionalMessage.value = 'Ishtirok joylar kiritilmagan yoki mavjud emas'
+        additionalMessage.value = 'Ijodiy videolar kiritilmagan yoki mavjud emas'
         errorImage.value = ErrorIMG
     }
 }

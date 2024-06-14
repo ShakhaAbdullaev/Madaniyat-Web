@@ -35,14 +35,29 @@ const router = createRouter({
       children: [
         {
           name: "Info",
-          path: "info",
+          path: "/info",
           component: () => import("../pages/profile/MainInfo.vue"),
         },
         {
-          name: "Paricipant",
-          path: "paricipants",
+          name: "ParticipantPlace",
+          path: "/participantPlace",
           component: () => import("../pages/profile/ParticipantPlace.vue"),
         },
+        {
+          name: "Videos",
+          path: "/videos",
+          component: () => import("../pages/profile/Videos.vue"),
+        },
+        {
+          name: "Projects",
+          path: "/projects",
+          component: () => import("../pages/profile/Projects.vue"),
+        },
+        {
+          name: "QRcode",
+          path: "/qrcode",
+          component: () => import("../pages/profile/QRcode.vue"),
+        }        
       ],
     },
   ],
