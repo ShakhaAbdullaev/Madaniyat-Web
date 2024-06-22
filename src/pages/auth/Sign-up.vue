@@ -22,8 +22,8 @@
                 <div class="flex flex-col mb-7 form-group">
 
                     <label for="phoneNumber" class="text-sm text-white font-semibold mb-2">Telefon raqam</label>
-                    <Input type="number" autocomplete="off" id="phoneNumber" placeholder="Telefon raqamingizni kiriting"
-                        v-model="phoneNumber" v-bind="phoneNumberAttrs" />
+                    <Input type="number" autocomplete="off" name="phoneNumber"
+                        placeholder="Telefon raqamingizni kiriting" v-model="phoneNumber" v-bind="phoneNumberAttrs" />
                     <span v-if="errors['phoneNumber']" class="error">{{ errors['phoneNumber'] }}</span>
 
                 </div>
@@ -49,7 +49,8 @@
 
                 <div class="">
 
-                    <Button class="hover:bg-primary w-full mb-6 bg-purple">Sms kod olish</Button>
+                    <Button type="submit" class="hover:bg-primary w-full mb-6 bg-purple text-white">Sms kod
+                        olish</Button>
 
                     <router-link to="/signin"
                         class="w-full bg-[#1B264A] hover:bg-primary py-3 px-7 text-white rounded-md flex justify-center">Menda
@@ -72,13 +73,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Input from '../../components/ui-components/Input.vue'
 import Button from '../../components/ui-components/Button.vue'
-import { vMaska } from "maska/vue"
-import { useForm } from 'vee-validate';
+import { useForm, validate } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup'
 import * as yup from 'yup'
-import { maska } from 'maska/svelte';
+import AccountService from '../../service/account.js'
 
 const isFormSubmitted = ref(false)
 
@@ -88,7 +89,7 @@ const schema = toTypedSchema(yup.object({
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Parollar mos emas').required('Parolni qayta kiriting')
 }))
 
-const { errors, defineField, handleSubmit } = useForm({
+const { errors, handleSubmit, defineField } = useForm({
     validationSchema: schema
 })
 
@@ -96,15 +97,29 @@ const [phoneNumber, phoneNumberAttrs] = defineField('phoneNumber')
 const [password, passwordAttrs] = defineField('password')
 const [confirmPassword, confirmPasswordAttrs] = defineField('confirmPassword')
 
-const onhandleSubmit = handleSubmit(async(values) => {
+const router = useRouter()
+
+
+const onhandleSubmit = handleSubmit(async (values) => {
     try {
         await validate();
-        isFormSubmitted.value = true;
+        if (Object.keys(errors.value).length === 0) {
+            const isRegisteredResponse = await AccountService.IsUserRegistered({ phoneNumber: values.phoneNumber });
+            if (!isRegisteredResponse.data.isRegistered) {
+                await AccountService.SendSMSCode({
+                    phoneNumber: values.phoneNumber,
+                    password: values.password,
+                    passwordConfirm: values.confirmPassword
+                });
+                router.push({ name: 'SMSCodeVerification', params: { formattedPhoneNumber: values.phoneNumber } });
+            } else {
+                alert('This phone number is already registered.');
+            }
+        }
     } catch (error) {
-        alert.error('Validation error:', error);
+        console.error('Error during submission:', error);
     }
-})
-
+});
 
 </script>
 

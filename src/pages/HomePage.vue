@@ -1,5 +1,4 @@
 <template>
-    <!-- <Loader :loading="isLoading" /> -->
     <Navbar/>
     <MainSection/>
     <Direction/>
@@ -21,7 +20,6 @@ import Locations from '../components/home/Locations.vue';
 import Statistics from '../components/home/Statistics.vue';
 import Partners from '../components/home/Partners.vue';
 import Footer from '../layouts/Footer.vue';
-// import Loader from '../components/ui-components/Loader.vue';
 </script>
 
 <style scoped>

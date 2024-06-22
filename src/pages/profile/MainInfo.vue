@@ -2,13 +2,7 @@
     <div class="w-auto grow">
         <h1 class="text-white text-lg font-bold mb-5">Shaxsiy ma’lumotlari</h1>
 
-        <hr class="border border-1 border-grey opacity-20">
-
-        <p class="text-white text-lg font-semibold mt-5 mb-2">Pasport seriyasi yoki PINFL</p>
-
-        <p
-            class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
-            {{ userInfo.pinfl }}</p>
+        <hr class="border border-1 border-grey opacity-20 mb-5">
 
         <div class="flex gap-4">
 
@@ -26,6 +20,19 @@
                     class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
                     {{ userInfo.person.patronymLatin }}</p>
 
+
+                <p class="text-white font-medium mb-2">Telefon raqami</p>
+
+                <p
+                    class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
+                    {{ userInfo.userName }}</p>
+
+                <p class="text-white font-medium mb-2">Pasport seriyasi</p>
+
+                <p
+                    class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
+                    {{ userInfo.person.passportSeria }}</p>
+
             </div>
 
             <div class="w-full">
@@ -42,6 +49,18 @@
                     class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
                     {{ userInfo.person.birthDate }}</p>
 
+                <p class="text-white font-medium mb-2">PINFL</p>
+
+                <p
+                    class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
+                    {{ userInfo.pinfl }}</p>
+
+                <p class="text-white font-medium mb-2">Pasport raqami</p>
+
+                <p
+                    class="bg-bgDarkBlue py-[10px] px-[16px] rounded-md outline-none border border-1 border-[#334257] text-white mb-5">
+                    {{ userInfo.person.passportNumber }}</p>
+
             </div>
 
         </div>
@@ -55,11 +74,14 @@ import AccountService from '../../service/account.js';
 
 const userInfo = ref({
     pinfl: '',
-    person:{
+    userName: '',
+    person: {
         nameLatin: '',
         surnameLatin: '',
         patronymLatin: '',
-        birthDate: ''
+        birthDate: '',
+        passportSeria: '',
+        passportNumber: '',
     }
 });
 

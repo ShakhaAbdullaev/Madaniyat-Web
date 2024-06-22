@@ -19,6 +19,12 @@ const router = createRouter({
       component: () => import("../pages/auth/Sign-up.vue"),
     },
     {
+      name: "SMSCodeVerification",
+      path: "/SMSCodeVerification/:formattedPhoneNumber",
+      component: () => import("../pages/auth/SMSCodeVerification.vue"),
+      props: true,
+    },
+    {
       name: "SignIn",
       path: "/signin",
       component: () => import("../pages/auth/Sign-in.vue"),
@@ -27,6 +33,11 @@ const router = createRouter({
       name: "Restore",
       path: "/restore",
       component: () => import("../pages/auth/Restore.vue"),
+    },
+    {
+      name: "UserAdd",
+      path: "/userAdd",
+      component: () => import("../pages/auth/UserAdd.vue"),
     },
     {
       name: "User",

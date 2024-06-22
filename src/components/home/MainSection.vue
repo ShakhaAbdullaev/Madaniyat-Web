@@ -22,18 +22,25 @@
             <hr class="border border-1 border-white absolute bottom-52 left-0 right-0 z-30">
 
 
-            <div class="container absolute bottom-12 left-0 right-0 z-30">
+            <div class="container absolute bottom-10 left-0 right-0 z-30">
 
                 <p class="text-white text-3xl font-semibold w-[470px]">Xoziroq o’z istedodingni namoyon et, ovoz to’pla
-                    <span class="bg-purple rounded-tr-xl rounded-bl-xl  px-2 py-1" style="line-height: 200%;">yulduz
-                        bo’l!</span>
+                    <span class="bg-purple rounded-tr-xl rounded-bl-xl  px-2 py-1" style="line-height: 200%;">yulduz bo’l!</span>
                 </p>
 
-                <RouterLink to="/signin"
-                    class="inline-flex items-center gap-2 bg-white py-3 px-7 rounded-md text-purple text-base font-medium hover:bg-slate-200">
-                    Ishtirok
-                    etish <img src="../../assets/icons/ArrowUpRight-d.svg" alt="">
-                </RouterLink>
+                <div class="flex gap-4 mt-2">
+
+                    <RouterLink to="/signup"
+                        class="inline-flex items-center gap-2 bg-white py-3 px-7 rounded-md text-purple text-base font-medium hover:bg-slate-200">
+                        Ishtirok etish <img src="../../assets/icons/ArrowUpRight-d.svg" alt="">
+                    </RouterLink>
+
+                    <RouterLink to="/signin"
+                        class="inline-flex items-center gap-2 bg-purple py-3 px-7 rounded-md text-white text-base font-medium hover:bg-primary">
+                        Hisobga kirish <img src="../../assets/icons/User.svg" alt="">
+                    </RouterLink>
+
+                </div>
 
 
             </div>

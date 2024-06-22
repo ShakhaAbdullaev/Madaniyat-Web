@@ -45,7 +45,7 @@
 
                 <div class="">
 
-                    <Button class="hover:bg-primary w-full mb-6 bg-purple" type="submit">Hisobga kirish</Button>
+                    <Button class="hover:bg-primary w-full mb-6 bg-purple text-white" type="submit">Hisobga kirish</Button>
 
                     <router-link to="/signup"
                         class="w-full bg-[#1B264A] hover:bg-primary py-3 px-7 text-white rounded-md flex justify-center">Menda
@@ -95,7 +95,6 @@ const onhandleSubmit = handleSubmit(async (values) => {
     try {
         await validate();
         const res = await AccountService.SignIn(values)
-        console.log(res, 'res ,signin')
         isFormSubmitted.value = true;
         router.push('/user')
     } catch (error) {
