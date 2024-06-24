@@ -100,26 +100,28 @@ const [confirmPassword, confirmPasswordAttrs] = defineField('confirmPassword')
 const router = useRouter()
 
 
-const onhandleSubmit = handleSubmit(async (values) => {
-    try {
-        await validate();
+const onhandleSubmit = handleSubmit(async values => {
+      try {
+        await validate()
         if (Object.keys(errors.value).length === 0) {
-            const isRegisteredResponse = await AccountService.IsUserRegistered({ phoneNumber: values.phoneNumber });
-            if (!isRegisteredResponse.data.isRegistered) {
-                await AccountService.SendSMSCode({
-                    phoneNumber: values.phoneNumber,
-                    password: values.password,
-                    passwordConfirm: values.confirmPassword
-                });
-                router.push({ name: 'SMSCodeVerification', params: { formattedPhoneNumber: values.phoneNumber } });
-            } else {
-                alert('This phone number is already registered.');
-            }
+          const isRegisteredResponse = await AccountService.IsUserRegistered({ phoneNumber: values.phoneNumber })
+          console.log('isRegisteredResponse:', isRegisteredResponse) 
+          if (isRegisteredResponse.data) {
+            alert("Siz allaqachon ro'yhatdan o'tgansiz.")
+            router.push('/signin')
+          } else {
+            await AccountService.SendSMSCode({
+              phoneNumber: values.phoneNumber,
+              password: values.password,
+              passwordConfirm: values.confirmPassword
+            })
+            router.push({ name: 'SMSCodeVerification', params: { formattedPhoneNumber: values.phoneNumber } })
+          }
         }
-    } catch (error) {
-        console.error('Error during submission:', error);
-    }
-});
+      } catch (error) {
+        console.error('Error during submission:', error)
+      }
+    })
 
 </script>
 
