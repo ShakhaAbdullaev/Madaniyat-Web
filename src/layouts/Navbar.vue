@@ -1,38 +1,38 @@
 <template>
 
-  <div :class="['navbar', {'scrolled': isScrolled}]">
+  <div :class="['navbar', { 'scrolled': isScrolled }]">
 
     <div class="container mt-3 flex justify-between items-center">
-  
-        <div class="logo">
-  
-            <a href="/"><img src="../assets/Main_logo.svg" alt="Logo"></a>
-  
-        </div>
-  
-        <div class="list-group">
-  
-            <ul class="flex gap-7 text-white font-bold ">
-  
-                <li><a href="#"class="hover:text-primary transition duration-250">Bosh sahifa</a></li>
-                <li><a href="#"class="hover:text-primary transition duration-250">Yo’nalishlar</a></li>
-                <li><a href="#"class="hover:text-primary transition duration-250">Manzillar</a></li>
-                <li><a href="#"class="hover:text-primary transition duration-250">Baholash mezoni</a></li>
-                <li><a href="#"class="hover:text-primary transition duration-250">Loyiha haqida</a></li>
-  
-            </ul>
-  
-        </div>
-  
-        <div class="language flex gap-3">
-  
-            <button :class="['text-white rounded-md py-1 px-2', activeButton === 'uz' ? 'active' : 'inactive']"
-              @click="setActiveButton('uz')">Uz</button>
-            <button :class="['text-white rounded-md py-1 px-2', activeButton === 'ru' ? 'active' : 'inactive']"
-              @click="setActiveButton('ru')">Ru</button>
-  
-        </div>
-  
+
+      <div class="logo">
+
+        <a href="/"><img src="../assets/Main_logo.svg" alt="Logo"></a>
+
+      </div>
+
+      <div class="list-group">
+
+        <ul class="flex gap-7 text-white font-bold ">
+
+          <li><a href="#" class="hover:text-primary transition duration-250">{{ $t('home') }}</a></li>
+          <li><a href="#" class="hover:text-primary transition duration-250">{{ $t('directions') }}</a></li>
+          <li><a href="#" class="hover:text-primary transition duration-250">{{ $t('addresses') }}</a></li>
+          <li><a href="#" class="hover:text-primary transition duration-250">{{ $t('evaluation_criteria') }}</a></li>
+          <li><a href="#" class="hover:text-primary transition duration-250">{{ $t('about_project') }}</a></li>
+
+        </ul>
+
+      </div>
+
+      <div class="language flex gap-3">
+
+        <button :class="['text-white rounded-md py-1 px-2', activeButton === 'uz' ? 'active' : 'inactive']"
+          @click="setActiveButton('uz')">Uz</button>
+        <button :class="['text-white rounded-md py-1 px-2', activeButton === 'ru' ? 'active' : 'inactive']"
+          @click="setActiveButton('ru')">Ru</button>
+
+      </div>
+
     </div>
 
   </div>
@@ -41,25 +41,34 @@
 </template>
 
 <script setup>
-import {ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n()
 
 const isScrolled = ref(false)
-const handleScroll = () =>{
+const handleScroll = () => {
   isScrolled.value = window.scrollY > 0
 }
 
-onMounted(()=>{
-  window.addEventListener('scroll', handleScroll)
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
 })
-onUnmounted(()=>{
+onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-const activeButton = ref('uz')
+const activeButton = ref(localStorage.getItem('locale') || 'uz');  
 
-const setActiveButton = (lang)=>{
-    activeButton.value = lang
-}
+const setActiveButton = (lang) => {
+  activeButton.value = lang;
+  locale.value = lang;
+  localStorage.setItem('locale', lang);  
+};
+
+watch(() => locale.value, (newLocale) => {
+    activeButton.value = newLocale;
+  });
 </script>
 
 <style scoped>
@@ -67,6 +76,7 @@ const setActiveButton = (lang)=>{
   background-color: white;
   color: #0B1D36;
 }
+
 .inactive {
   color: white;
   background-color: transparent;

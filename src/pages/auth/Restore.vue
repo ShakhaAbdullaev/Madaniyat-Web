@@ -29,7 +29,7 @@
 
                 <div class="">
 
-                    <Button class="hover:bg-primary w-full mb-6 bg-purple">Sms kod olish</Button>
+                    <Button class="hover:bg-primary w-full mb-6 bg-purple text-white">Sms kod olish</Button>
 
                 </div>
 
